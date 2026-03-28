@@ -63,25 +63,31 @@ class _DashboardTabState extends State<DashboardTab> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 sliver: SliverList(delegate: SliverChildListDelegate([
                   const SizedBox(height: 8),
-                  // Balance hero
+                  // Balance hero — slower, smoother entry with tighter vertical travel
                   _BalanceHero(
                     balance: balance,
                     income: totalIncome,
                     expense: totalExpense,
                     userName: widget.user.name.split(' ').first,
-                  ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.05),
+                  ).animate().fadeIn(duration: 500.ms, curve: Curves.easeOutQuart)
+                   .slideY(begin: 0.03, curve: Curves.easeOutQuart),
                   const SizedBox(height: 16),
-                  // Quick actions
-                  _QuickActions(userId: widget.user.id).animate().fadeIn(delay: 80.ms),
+                  // Quick actions — slight upward reveal added for consistency
+                  _QuickActions(userId: widget.user.id)
+                    .animate()
+                    .fadeIn(delay: 100.ms, duration: 400.ms)
+                    .slideY(begin: 0.03, curve: Curves.easeOutCubic),
                   const SizedBox(height: 20),
-                  // Velocity
+                  // Velocity — nudged delay to sit after quick actions settle
                   if (monthTxns.isNotEmpty)
                     VelocityCard(
                       spent: totalExpense,
                       income: totalIncome,
                       daysInMonth: DateTime(now.year, now.month + 1, 0).day,
                       dayOfMonth: now.day,
-                    ).animate().fadeIn(delay: 120.ms),
+                    ).animate()
+                     .fadeIn(delay: 160.ms, duration: 420.ms)
+                     .slideY(begin: 0.03, curve: Curves.easeOutCubic),
                   if (monthTxns.isNotEmpty) const SizedBox(height: 16),
                   // Budgets
                   if (_budgets.isNotEmpty) ...[
@@ -89,36 +95,44 @@ class _DashboardTabState extends State<DashboardTab> {
                       title: 'Budgets',
                       action: 'Manage',
                       onAction: () => _showBudgetManager(context, monthTxns),
-                    ).animate().fadeIn(delay: 160.ms),
+                    ).animate().fadeIn(delay: 220.ms, duration: 380.ms),
                     const SizedBox(height: 10),
                     ..._budgets.take(3).map((b) {
                       final spent = monthTxns.where((t) => t.isExpense && t.category == b.category)
                           .fold(0.0, (s, t) => s + t.amount);
+                      // Snappier horizontal slide, tighter travel distance
                       return BudgetBar(budget: b, spent: spent)
-                          .animate().fadeIn(delay: 200.ms).slideX(begin: 0.04);
+                          .animate()
+                          .fadeIn(delay: 260.ms, duration: 350.ms)
+                          .slideX(begin: 0.03, curve: Curves.easeOutCubic);
                     }),
                     const SizedBox(height: 8),
                   ],
                   // Set budget CTA if none
                   if (_budgets.isEmpty) ...[
                     _SetBudgetCta(onTap: () => _showBudgetManager(context, monthTxns))
-                        .animate().fadeIn(delay: 160.ms),
+                        .animate().fadeIn(delay: 220.ms, duration: 380.ms),
                     const SizedBox(height: 16),
                   ],
                   // Recent transactions
                   _SectionHeader(
                     title: 'Recent',
                     action: recent.isEmpty ? null : null,
-                  ).animate().fadeIn(delay: 200.ms),
+                  ).animate().fadeIn(delay: 280.ms, duration: 360.ms),
                   const SizedBox(height: 10),
                   if (recent.isEmpty)
-                    const _EmptyState().animate().fadeIn(delay: 250.ms)
+                    const _EmptyState().animate().fadeIn(delay: 320.ms, duration: 400.ms)
                   else
+                    // Longer base delay + 60 ms per-item stagger with easeOutCubic
                     ...recent.asMap().entries.map((e) =>
                       _TxTile(tx: e.value)
                         .animate()
-                        .fadeIn(delay: Duration(milliseconds: 220 + e.key * 50))
-                        .slideX(begin: 0.04)
+                        .fadeIn(
+                          delay: Duration(milliseconds: 300 + e.key * 60),
+                          duration: 300.ms,
+                          curve: Curves.easeOutCubic,
+                        )
+                        .slideX(begin: 0.03, curve: Curves.easeOutCubic)
                     ),
                   const SizedBox(height: 100),
                 ])),
@@ -455,8 +469,10 @@ class _EmptyState extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(32),
       child: Column(children: [
-        const Text('💸', style: TextStyle(fontSize: 40)).animate().scale(
-          duration: 500.ms, curve: Curves.elasticOut),
+        // Added 100 ms delay before the elastic spring so it doesn't fire mid-fade
+        const Text('💸', style: TextStyle(fontSize: 40))
+          .animate()
+          .scale(delay: 100.ms, duration: 600.ms, curve: Curves.elasticOut),
         const SizedBox(height: 12),
         Text('No transactions yet', style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 4),
