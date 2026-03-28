@@ -2,7 +2,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/currency_formatter.dart';
@@ -124,7 +123,7 @@ class _AnalyticsTabState extends State<AnalyticsTab>
       child: SafeArea(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 10, 20, 8),
-          child: Text('Analytics', style: GoogleFonts.dmSans(
+          child: Text('Analytics', style: TextStyle(fontFamily: 'DM Sans', 
               color: AppColors.textPrimary, fontSize: 24,
               fontWeight: FontWeight.w800, letterSpacing: -0.5)),
         ),
@@ -178,7 +177,7 @@ class _PillTabsState extends State<_PillTabs> {
             borderRadius: BorderRadius.circular(9),
           ),
           alignment: Alignment.center,
-          child: Text(e.value, style: GoogleFonts.dmSans(
+          child: Text(e.value, style: TextStyle(fontFamily: 'DM Sans', 
               color: active ? AppColors.cream100 : AppColors.textMuted,
               fontWeight: FontWeight.w700, fontSize: 13)),
         ),
@@ -222,10 +221,10 @@ Widget _StatTile(String label, String value, Color color, IconData icon) =>
                 borderRadius: BorderRadius.circular(6)),
             child: Icon(icon, color: color, size: 11)),
           const SizedBox(width: 5),
-          Text(label, style: GoogleFonts.dmSans(color: AppColors.textMuted, fontSize: 10)),
+          Text(label, style: TextStyle(fontFamily: 'DM Sans', color: AppColors.textMuted, fontSize: 10)),
         ]),
         const SizedBox(height: 7),
-        Text(value, style: GoogleFonts.dmSans(
+        Text(value, style: TextStyle(fontFamily: 'DM Sans', 
             color: color, fontWeight: FontWeight.w800, fontSize: 15, letterSpacing: -0.3)),
       ]),
     ));
@@ -267,7 +266,7 @@ class _HealthScore extends StatelessWidget {
         const SizedBox(width: 16),
         Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(children: [
-            Text('Financial Health', style: GoogleFonts.dmSans(
+            Text('Financial Health', style: TextStyle(fontFamily: 'DM Sans', 
                 color: AppColors.textPrimary, fontWeight: FontWeight.w700, fontSize: 14)),
             const Spacer(),
             _chip(label, color),
@@ -277,12 +276,12 @@ class _HealthScore extends StatelessWidget {
             tween: IntTween(begin: 0, end: score),
             duration: const Duration(milliseconds: 1100),
             builder: (_, v, __) => Text('$v / 100',
-                style: GoogleFonts.dmSans(
+                style: TextStyle(fontFamily: 'DM Sans', 
                     color: color, fontSize: 22,
                     fontWeight: FontWeight.w800, letterSpacing: -1)),
           ),
           Text('Based on savings rate & spending variety',
-              style: GoogleFonts.dmSans(color: AppColors.textMuted, fontSize: 10)),
+              style: TextStyle(fontFamily: 'DM Sans', color: AppColors.textMuted, fontSize: 10)),
         ])),
       ]),
     );
@@ -303,7 +302,7 @@ class _PieCard extends StatelessWidget {
     final hasTouch = touched >= 0 && touched < sorted.length;
     return FmCard(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Row(children: [
-        Text('Expense Breakdown', style: GoogleFonts.dmSans(
+        Text('Expense Breakdown', style: TextStyle(fontFamily: 'DM Sans', 
             color: AppColors.textPrimary, fontWeight: FontWeight.w700, fontSize: 16)),
         const Spacer(),
         _chip(CurrencyFormatter.formatCompact(total), AppColors.expense),
@@ -323,7 +322,7 @@ class _PieCard extends StatelessWidget {
               value: e.value.value,
               // Show % label only on active slice, inside the ring
               title: active ? '${pct.toStringAsFixed(0)}%' : '',
-              titleStyle: GoogleFonts.dmSans(
+              titleStyle: TextStyle(fontFamily: 'DM Sans', 
                   color: Colors.white, fontSize: 11, fontWeight: FontWeight.w700),
               titlePositionPercentageOffset: 0.6,
               // Small radius bump — stays within fixed SizedBox
@@ -373,7 +372,7 @@ class _PieCard extends StatelessWidget {
                   decoration: BoxDecoration(color: c, shape: BoxShape.circle)),
               const SizedBox(width: 5),
               Text('${e.value.key}  ${pct.toStringAsFixed(0)}%',
-                  style: GoogleFonts.dmSans(
+                  style: TextStyle(fontFamily: 'DM Sans', 
                       color: active ? c : AppColors.textSecondary,
                       fontSize: 11,
                       fontWeight: active ? FontWeight.w700 : FontWeight.w400)),
@@ -390,10 +389,10 @@ class _CenterLabel extends StatelessWidget {
   const _CenterLabel({super.key, required this.value, required this.label, required this.color});
   @override
   Widget build(BuildContext context) => Column(mainAxisSize: MainAxisSize.min, children: [
-    Text(value, style: GoogleFonts.dmSans(
+    Text(value, style: TextStyle(fontFamily: 'DM Sans', 
         color: color, fontWeight: FontWeight.w800, fontSize: 15, letterSpacing: -0.3)),
     const SizedBox(height: 2),
-    Text(label, style: GoogleFonts.dmSans(color: AppColors.textMuted, fontSize: 10)),
+    Text(label, style: TextStyle(fontFamily: 'DM Sans', color: AppColors.textMuted, fontSize: 10)),
   ]);
 }
 
@@ -406,7 +405,7 @@ class _CategoryBars extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FmCard(
     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text('By Category', style: GoogleFonts.dmSans(
+      Text('By Category', style: TextStyle(fontFamily: 'DM Sans', 
           color: AppColors.textPrimary, fontWeight: FontWeight.w700, fontSize: 16)),
       const SizedBox(height: 16),
       ...sorted.asMap().entries.map((e) {
@@ -422,13 +421,13 @@ class _CategoryBars extends StatelessWidget {
                 child: Center(child: Container(width: 9, height: 9,
                     decoration: BoxDecoration(color: c, shape: BoxShape.circle)))),
               const SizedBox(width: 10),
-              Expanded(child: Text(e.value.key, style: GoogleFonts.dmSans(
+              Expanded(child: Text(e.value.key, style: TextStyle(fontFamily: 'DM Sans', 
                   color: AppColors.textPrimary, fontSize: 13, fontWeight: FontWeight.w500))),
               Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                Text(CurrencyFormatter.formatCompact(e.value.value), style: GoogleFonts.dmSans(
+                Text(CurrencyFormatter.formatCompact(e.value.value), style: TextStyle(fontFamily: 'DM Sans', 
                     color: c, fontWeight: FontWeight.w700, fontSize: 13)),
                 Text('${(pct * 100).toStringAsFixed(0)}%',
-                    style: GoogleFonts.dmSans(color: AppColors.textMuted, fontSize: 10)),
+                    style: TextStyle(fontFamily: 'DM Sans', color: AppColors.textMuted, fontSize: 10)),
               ]),
             ]),
             const SizedBox(height: 8),
@@ -475,7 +474,7 @@ class _BarChart extends StatelessWidget {
     final topY = maxY < 1000 ? 1000.0 : maxY * 1.2;
     return FmCard(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Row(children: [
-        Text('6-Month Trend', style: GoogleFonts.dmSans(
+        Text('6-Month Trend', style: TextStyle(fontFamily: 'DM Sans', 
             color: AppColors.textPrimary, fontWeight: FontWeight.w700, fontSize: 16)),
         const Spacer(),
         _dot(AppColors.income, 'In'), const SizedBox(width: 12), _dot(AppColors.expense, 'Out'),
@@ -493,10 +492,10 @@ class _BarChart extends StatelessWidget {
           bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: true, reservedSize: 24,
               getTitlesWidget: (v, _) => Padding(padding: const EdgeInsets.only(top: 6),
                 child: Text(bars[v.toInt()].label,
-                    style: GoogleFonts.dmSans(color: AppColors.textMuted, fontSize: 10))))),
+                    style: TextStyle(fontFamily: 'DM Sans', color: AppColors.textMuted, fontSize: 10))))),
           leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: true, reservedSize: 42,
               getTitlesWidget: (v, _) => Text(CurrencyFormatter.formatCompact(v),
-                  style: GoogleFonts.dmSans(color: AppColors.textMuted, fontSize: 9)))),
+                  style: TextStyle(fontFamily: 'DM Sans', color: AppColors.textMuted, fontSize: 9)))),
         ),
         barGroups: bars.asMap().entries.map((e) => BarChartGroupData(
             x: e.key, barsSpace: 4, barRods: [
@@ -508,7 +507,7 @@ class _BarChart extends StatelessWidget {
           tooltipRoundedRadius: 10,
           getTooltipItem: (g, _, rod, ri) => BarTooltipItem(
             '${ri == 0 ? "In" : "Out"}\n${CurrencyFormatter.formatCompact(rod.toY)}',
-            GoogleFonts.dmSans(
+            TextStyle(fontFamily: 'DM Sans', 
                 color: ri == 0 ? AppColors.income : AppColors.expense,
                 fontWeight: FontWeight.w700, fontSize: 11)),
         )),
@@ -551,7 +550,7 @@ class _Insights extends StatelessWidget {
 
     return FmCard(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Row(children: [
-        Text('Insights', style: GoogleFonts.dmSans(
+        Text('Insights', style: TextStyle(fontFamily: 'DM Sans', 
             color: AppColors.textPrimary, fontWeight: FontWeight.w700, fontSize: 16)),
         const SizedBox(width: 8),
         _chip('Auto', AppColors.accent),
@@ -581,7 +580,7 @@ class _Insights extends StatelessWidget {
       ],
       if (transactions.isEmpty)
         Text('Log more transactions to see insights',
-            style: GoogleFonts.dmSans(color: AppColors.textMuted, fontSize: 13)),
+            style: TextStyle(fontFamily: 'DM Sans', color: AppColors.textMuted, fontSize: 13)),
     ]));
   }
 }
@@ -619,7 +618,7 @@ class _WeekdayBar extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          Text(days[i], style: GoogleFonts.dmSans(
+          Text(days[i], style: TextStyle(fontFamily: 'DM Sans', 
               color: isPeak ? AppColors.info : AppColors.textMuted, fontSize: 10,
               fontWeight: isPeak ? FontWeight.w700 : FontWeight.w400)),
         ]);
@@ -639,7 +638,7 @@ class _InsightRow extends StatelessWidget {
       child: Icon(icon, color: color, size: 15)),
     const SizedBox(width: 12),
     Expanded(child: Padding(padding: const EdgeInsets.only(top: 3),
-      child: Text(text, style: GoogleFonts.dmSans(
+      child: Text(text, style: TextStyle(fontFamily: 'DM Sans', 
           color: AppColors.textSecondary, fontSize: 13, height: 1.4)))),
   ]);
 }
@@ -657,11 +656,11 @@ class _NoData extends StatelessWidget {
             border: Border.all(color: AppColors.primary.withValues(alpha: 0.15), width: 1.5)),
         child: const Center(child: Text('📊', style: TextStyle(fontSize: 30)))),
       const SizedBox(height: 14),
-      Text('No expenses yet', style: GoogleFonts.dmSans(
+      Text('No expenses yet', style: TextStyle(fontFamily: 'DM Sans', 
           color: AppColors.textPrimary, fontWeight: FontWeight.w600, fontSize: 15)),
       const SizedBox(height: 5),
       Text('Add transactions to see your breakdown', textAlign: TextAlign.center,
-          style: GoogleFonts.dmSans(color: AppColors.textMuted, fontSize: 12)),
+          style: TextStyle(fontFamily: 'DM Sans', color: AppColors.textMuted, fontSize: 12)),
     ]),
   ));
 }
@@ -671,12 +670,12 @@ Widget _chip(String text, Color color) => Container(
   padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
   decoration: BoxDecoration(color: color.withValues(alpha: 0.1),
       borderRadius: BorderRadius.circular(20)),
-  child: Text(text, style: GoogleFonts.dmSans(
+  child: Text(text, style: TextStyle(fontFamily: 'DM Sans', 
       color: color, fontSize: 11, fontWeight: FontWeight.w600)),
 );
 
 Widget _dot(Color color, String label) => Row(children: [
   Container(width: 8, height: 8, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
   const SizedBox(width: 5),
-  Text(label, style: GoogleFonts.dmSans(color: AppColors.textMuted, fontSize: 11)),
+  Text(label, style: TextStyle(fontFamily: 'DM Sans', color: AppColors.textMuted, fontSize: 11)),
 ]);

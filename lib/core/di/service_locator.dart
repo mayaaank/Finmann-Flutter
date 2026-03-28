@@ -8,6 +8,9 @@ import '../../data/repositories/i_goal_repository.dart';
 import '../../data/repositories/goal_repository.dart';
 import '../../presentation/blocs/auth/auth_bloc.dart';
 import '../../presentation/blocs/transaction/transaction_bloc.dart';
+import '../../presentation/blocs/analytics/analytics_bloc.dart';
+import '../../presentation/blocs/budget/budget_bloc.dart';
+import '../../presentation/blocs/goal/goal_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -19,4 +22,7 @@ void setupLocator() {
 
   sl.registerFactory(() => AuthBloc(sl<AuthRepository>()));
   sl.registerFactory(() => TransactionBloc(sl<ITransactionRepository>()));
+  sl.registerFactory(() => AnalyticsBloc(sl<ITransactionRepository>()));
+  sl.registerFactory(() => BudgetBloc(sl<IBudgetRepository>()));
+  sl.registerFactory(() => GoalBloc(sl<IGoalRepository>()));
 }

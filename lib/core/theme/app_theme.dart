@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'app_colors.dart';
 import 'app_radius.dart';
@@ -26,7 +25,7 @@ class AppTheme {
         onSecondary: Colors.white,
         onSurface: AppColors.textPrimary,
       ),
-      textTheme: GoogleFonts.dmSansTextTheme().copyWith(
+      textTheme: ThemeData.light().textTheme.apply(fontFamily: 'DM Sans').copyWith(
         displayLarge: AppTypography.hero,
         displayMedium: AppTypography.h1,
         headlineLarge: AppTypography.h2,
